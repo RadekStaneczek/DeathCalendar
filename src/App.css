@@ -1,7 +1,47 @@
 .App {
   text-align: center;
 }
-
+#calendar
+{
+  font-size: 48px;
+  font-family: consolas;
+}
+.square
+{
+  width: 10px;
+  height: 10px;
+  display: inline-block;
+  margin-top: 10px;
+}
+#dzien
+{
+  margin-bottom: 10px;
+}
+#przycisk
+{
+  font-size: larger;
+  text-align: center;
+}
+#red_square
+{
+  background-color: rgb(192, 16, 84);
+}
+#green_square
+{
+  background-color: rgb(20, 190, 57);
+}
+#yellow_square
+{
+  background-color: rgb(241, 219, 21);
+}
+#grid
+{
+  display: grid;
+  grid-template-columns: repeat(auto-fit, calc(100%/52));
+  grid-template-columns: repeat(auto-fit, 20px);
+  width:60%;
+  padding:10px;
+}
 .App-logo {
   height: 40vmin;
   pointer-events: none;
