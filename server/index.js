@@ -5,7 +5,9 @@ const PORT = process.env.PORT || 10000;
 
 const app = express();
 
+const cors = require('cors');
 
+app.use(cors({ origin: 'https://deathcal.onrender.com' }));
 app.use(express.static(path.resolve(__dirname, '../client/build')));
 
 app.listen(PORT,()=>{
