@@ -34,10 +34,10 @@ function calculate(date)
     let birthday = new Date(date);
     let newYearDate = new Date((date.split("-")[0]) + "-12-31T24:00:00");
     let week = 604800000;
-    let time_passed = Date.now() - birthday;
-    let offset = (newYearDate - birthday)/week;
+    let time_passed = Date.now() - birthday.getMilliseconds();
+    let offset = (newYearDate.getTime() - birthday.getTime())/week;
     console.log(newYearDate);
     console.log(offset);
     console.log(time_passed/week);
-    return {redSquaresAmount:time_passed/week,offset:Math.ceil(offset),year:birthday.getFullYear()};
+    return {redSquaresAmount:time_passed/week,offset:Math.round(offset),year:birthday.getFullYear()};
 }
