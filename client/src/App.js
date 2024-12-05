@@ -40,15 +40,10 @@ function POST()
       .then(()=>{
         let lastWholeYear = post_content.offset;
         let year = post_content.birthdayear;
-        let leapYearExtraDays = 0; 
-        let dayCounter = 0;
+    
         console.log(year);
         for (let i = 0; i < 4174; i++) {
             // Handle leap year increment
-            if (isLeap(year) && dayCounter === 0) {
-              leapYearExtraDays = 1;
-            }
-
             if (i < post_content.weekslived) {
               squares.push(<div class="square red_square" alt={i}></div>);
             } else {
@@ -57,18 +52,11 @@ function POST()
 
             // Year change logic when reaching last week of the year
             if (i === lastWholeYear) {
+              squares.pop();
               squares.push(<div class="square yellow_square" alt={i}></div>);
-              lastWholeYear += 52 + leapYearExtraDays;
-              year++;
-              leapYearExtraDays = 0; // Reset for the next year
+              lastWholeYear += 52;
             }
-
-            // Weekly increment handling
-            dayCounter++;
-            if (dayCounter === 7) {
-              lastWholeYear++;
-              dayCounter = 0;
-            }
+  
         }
         root.render(squares); 
         result.innerHTML = `Ile dni już żyję: ${post_content.dayslived}<br>Ile tygodni już żyję: ${post_content.weekslived}<br>Ile tygodni mi pozostało: ${post_content.weeksleft}<br>`

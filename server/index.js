@@ -1,7 +1,7 @@
 const path = require('path');
 const express = require("express");
 
-const PORT = process.env.PORT || 10000;
+const PORT = process.env.PORT || 3001;
 
 const app = express();
 
@@ -32,12 +32,12 @@ app.get('*', (req, res) => {
 function calculate(date)
 {
     let birthday = new Date(date);
-    let newYearDate = new Date((date.split("-")[0]) + "-12-31T23:59:59");
+    let newYearDate = new Date(Date.UTC((date.split("-")[0]), 11, 31, 23, 59, 59));
     let week = 604800000;
     let time_passed = Date.now() - birthday.getTime();
     let offset = (newYearDate.getTime() - birthday.getTime())/week;
     console.log(newYearDate);
     console.log(offset);
     console.log(time_passed/week);
-    return {redSquaresAmount:time_passed/week,offset:Math.ceil(offset),year:birthday.getFullYear()};
+    return {redSquaresAmount:Math.floor(time_passed/week),offset:Math.ceil(offset),year:birthday.getFullYear()};
 }
