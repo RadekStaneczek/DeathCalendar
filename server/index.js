@@ -34,7 +34,7 @@ function calculate(date)
     let birthday = new Date(date);
     let newYearDate = new Date((date.split("-")[0]) + "-12-31T23:59:59");
     let week = 604800000;
-    let time_passed = Date.now() - birthday.getDate();
+    let time_passed = Date.now() - birthday.getTime();
     let offset = (newYearDate.getTime() - birthday.getTime())/week;
     console.log(newYearDate);
     console.log(offset);
