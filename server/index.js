@@ -39,5 +39,5 @@ function calculate(date)
     console.log(newYearDate);
     console.log(offset);
     console.log(time_passed/week);
-    return {redSquaresAmount:time_passed/week,offset:Math.round(offset),year:birthday.getFullYear()};
+    return {redSquaresAmount:time_passed/week,offset:Math.ceil(offset),year:birthday.getFullYear()};
 }
