@@ -38,7 +38,7 @@ function POST()
         post_content = data;
       })
       .then(()=>{
-        let lastwholeyear = post_content.offset;
+        let lastWholeYear = post_content.offset;
         let year = post_content.birthdayear;
         let leapYearExtraDays = 0; 
         let dayCounter = 0;
