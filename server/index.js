@@ -32,7 +32,7 @@ app.get('*', (req, res) => {
 function calculate(date)
 {
     let birthday = new Date(date);
-    let newYearDate = new Date((date.split("-")[0]) + "-12-31T24:00:00");
+    let newYearDate = new Date((date.split("-")[0]) + "-12-31T23:59:59");
     let week = 604800000;
     let time_passed = Date.now() - birthday.getMilliseconds();
     let offset = (newYearDate.getTime() - birthday.getTime())/week;

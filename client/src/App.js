@@ -44,7 +44,7 @@ function POST()
         console.log(year);
         for(let i=0;i<post_content.weekslived;i++)
         {
-          if(day == 7)
+          if(day >= 7)
           {
             lastwholeyear += 1;
             day = 0;
@@ -79,7 +79,7 @@ function POST()
         for(let i=post_content.weekslived;i<4174;i++)
         { 
 
-          if(day == 7)
+          if(day >= 7)
           {
             lastwholeyear += 1;
             day = 0;
