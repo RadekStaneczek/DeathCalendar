@@ -40,65 +40,35 @@ function POST()
       .then(()=>{
         let lastwholeyear = post_content.offset;
         let year = post_content.birthdayear;
-        let day = 0;
+        let leapYearExtraDays = 0; 
+        let dayCounter = 0;
         console.log(year);
-        for(let i=0;i<post_content.weekslived;i++)
-        {
-          if(day >= 7)
-          {
-            lastwholeyear += 1;
-            day = 0;
-          }
-          else if(i === post_content.offset)
-          {
-            squares.push(<div class="square yellow_square" alt={i}></div>);
-            lastwholeyear += 52;
-            year += 1;
-            if((((year % 4 == 0) && (year % 100 != 0)) || (year % 400 == 0)))
-            {
-                console.log(year);
-                day += 1;
+        for (let i = 0; i < 4174; i++) {
+            // Handle leap year increment
+            if (isLeap(year) && dayCounter === 0) {
+              leapYearExtraDays = 1;
             }
-          }
-          else if(i % lastwholeyear === 0 && i > 0)
-          {
-              squares.push(<div class="square yellow_square" alt={i}></div>);
-              lastwholeyear += 52;
-              year += 1;
-              if((((year % 4 == 0) && (year % 100 != 0)) || (year % 400 == 0)))
-              {
-                  console.log(year);
-                  day += 1;
-              }
-          }
-          else
-          {
-            squares.push(<div class="square red_square" alt={i}></div>);
-          }
-        }
-        for(let i=post_content.weekslived;i<4174;i++)
-        { 
 
-          if(day >= 7)
-          {
-            lastwholeyear += 1;
-            day = 0;
-          }
-          else if(i % lastwholeyear === 0 && i > 0)
-          {
-            squares.push(<div class="square yellow_square" alt={i}></div>);
-            lastwholeyear += 52;
-            year += 1;
-            if((((year % 4 == 0) && (year % 100 != 0)) || (year % 400 == 0)))
-              {
-                console.log(year);
-                day += 1;
-              }
-          }  
-          else
-          {
-            squares.push(<div class="square green_square"  alt={i}></div>); 
-          }
+            if (i < post_content.weekslived) {
+              squares.push(<div class="square red_square" alt={i}></div>);
+            } else {
+              squares.push(<div class="square green_square" alt={i}></div>);
+            }
+
+            // Year change logic when reaching last week of the year
+            if (i === lastWholeYear) {
+              squares.push(<div class="square yellow_square" alt={i}></div>);
+              lastWholeYear += 52 + leapYearExtraDays;
+              year++;
+              leapYearExtraDays = 0; // Reset for the next year
+            }
+
+            // Weekly increment handling
+            dayCounter++;
+            if (dayCounter === 7) {
+              lastWholeYear++;
+              dayCounter = 0;
+            }
         }
         root.render(squares); 
         result.innerHTML = `Ile dni już żyję: ${post_content.dayslived}<br>Ile tygodni już żyję: ${post_content.weekslived}<br>Ile tygodni mi pozostało: ${post_content.weeksleft}<br>`
@@ -111,5 +81,8 @@ function POST()
     alert("Brakuje daty urodzin");
   }
 }
-
+function isLeap(year)
+{
+  return (year % 4 === 0 && year % 100 !== 0) || (year % 400 === 0);
+}
 export default App;
