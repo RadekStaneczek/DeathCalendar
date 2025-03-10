@@ -24,7 +24,7 @@ function POST()
   let date = document.getElementById("dzien").value;
   let result = document.getElementById("result");
   let squares = [];
-  if(date != "")
+  if(date != "" && Date.now() - new Date(date).getTime() > 0)
   {
     const response = fetch("/post", {
       method: "POST",
@@ -34,6 +34,7 @@ function POST()
     })
       .then((res) => res.json())
       .then((data)=>{
+
         console.log(post_content);
         post_content = data;
       })
@@ -42,27 +43,38 @@ function POST()
         let year = post_content.birthdayear;
     
         console.log(year);
-        for (let i = 0; i < 4174; i++) {
-            // Handle leap year increment
-            if (i < post_content.weekslived) {
-              squares.push(<div class="square red_square" alt={i}></div>);
-            } else {
-              squares.push(<div class="square green_square" alt={i}></div>);
-            }
-
-            // Year change logic when reaching last week of the year
-            if (i === lastWholeYear) {
-              squares.pop();
-              squares.push(<div class="square yellow_square" alt={i}></div>);
-              lastWholeYear += 52;
-            }
-  
+        console.log("Test");
+        console.log(Date.now() - new Date(date));
+        if(post_content.weeksleft < 0)
+        {
+          result.innerHTML = "Już nie żyjesz💀";
         }
-        root.render(squares); 
-        result.innerHTML = `Ile dni już żyję: ${post_content.dayslived}<br>Ile tygodni już żyję: ${post_content.weekslived}<br>Ile tygodni mi pozostało: ${post_content.weeksleft}<br>`
+        else{
+          for (let i = 0; i < 4174; i++) {
+              // Handle leap year increment
+              if (i < post_content.weekslived) {
+                squares.push(<div class="square red_square" alt={i}></div>);
+              } else {
+                squares.push(<div class="square green_square" alt={i}></div>);
+              }
 
+              // Year change logic when reaching last week of the year
+              if (i === lastWholeYear) {
+                squares.pop();
+                squares.push(<div class="square yellow_square" alt={i}></div>);
+                lastWholeYear += 52;
+              }
+    
+          }
+          root.render(squares); 
+          result.innerHTML = `Ile dni już żyję: ${post_content.dayslived}<br>Ile tygodni już żyję: ${post_content.weekslived}<br>Ile tygodni mi pozostało: ${post_content.weeksleft}<br>`
+        }
       });
 
+  }
+  else if(Date.now() - new Date(date) < 0)
+  {
+    alert("Zła data");
   }
   else
   {
